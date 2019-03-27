@@ -1,4 +1,3 @@
 function getYelpResults(){
     localStorage.term;
 }
-
