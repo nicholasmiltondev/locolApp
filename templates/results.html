@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    {% load static %}
+    <script src="{% static 'jsFiles/speechToText.js' %}"></script>
+
     <script>
         $(document).ready(function(){
 
@@ -63,7 +66,6 @@
         geocoder.geocode({'address': address}, function(results, status) {
             if (status === 'OK')
             {
-
                 selLocLat   = results[0].geometry.location.lat();
                 selLocLng   = results[0].geometry.location.lng();
 
@@ -74,6 +76,16 @@
                     zoom: 11
                 });
 
+                let myCity = new google.maps.Circle({
+                    map: map,
+                    center: results[0].geometry.location,	// {lat: , lng:}
+                    radius: radius, //walking speed = 1.4m/s == 84m/min
+                    strokeColor:"#0000FF",
+                    strokeOpacity:0.8,
+                    strokeWeight:2,
+                    fillColor:"#0000FF",
+                    fillOpacity:0.4
+                });
 
                 let request = {
                     location: pyrmont,
@@ -97,10 +109,19 @@
     {
         if (status == google.maps.places.PlacesServiceStatus.OK)
         {
+            console.log(results);
+            let markers = [];
             for (let i = 0; i < results.length; i++)
             {
                 createMarker(results[i], results[i].icon);
+                markers.push(results[i].geometry.location);
             }
+
+                let latlngbounds = new google.maps.LatLngBounds();
+                for (let i = 0; i < markers.length; i++) {
+                    latlngbounds.extend(markers[i]);
+                }
+                map.fitBounds(latlngbounds);
         }
     }
 
@@ -122,6 +143,11 @@
             infowindow.open(map, this);
         });
     }
+
+    // YELP
+
+
+
     </script>
 </head>
 
@@ -133,11 +159,11 @@
         <div id="searchDiv" class="collapse text-center">
             <br>
             <span>
-                <input type="text" name="address" id="address">
+                <input type="text" name="address" id="address" placeholder="Touch Mic to Speak">
                 <input type="button" value="Search" class="btn btn-secondary" id="submit" onclick="renderMap();">
                 <br>
                 <br>
-                <button class="btn btn-secondary">Enable speech to text</button>
+                <img id="mic" onclick="speechToText()" src="../static/images/mic.gif" />
                 <br>
                 <br>
             </span>
