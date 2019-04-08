@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    {% load static %}
-    <script src="{% static 'jsFiles/speechToText.js' %}"></script>
+
+    <script src="{{ STATIC_URL }}jsFiles/speechToText.js"></script>
 
     <script>
         $(document).ready(function(){
@@ -150,10 +150,10 @@
 
     </script>
 </head>
-
+{% if user.is_authenticated %}
 <body>
     <div class="searchDiv">
-        <button class="btn btn-secondary" onclick="window.location.href='../'">Logout</button>
+        <button class="btn btn-secondary" onclick="window.location.href='../logout'">Logout</button>
         <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#searchDiv">Show/Hide search bar</button>
         <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#sideDiv">Show/Hide search options</button>
         <div id="searchDiv" class="collapse text-center">
@@ -163,7 +163,7 @@
                 <input type="button" value="Search" class="btn btn-secondary" id="submit" onclick="renderMap();">
                 <br>
                 <br>
-                <img id="mic" onclick="speechToText()" src="../static/images/mic.gif" />
+                <img id="mic" onclick="speechToText()" src="{{ STATIC_URL }}images/mic.gif" />
                 <br>
                 <br>
             </span>
@@ -208,5 +208,5 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFkHokLABe2SKQ7NLYDi6aCeU841CA01g&libraries=places&callback=initialize" async defer></script>
 
 </body>
-
+{% endif %}
 </html>

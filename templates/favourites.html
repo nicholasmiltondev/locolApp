@@ -9,11 +9,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-
+{% if user.is_authenticated %}
 <body>
     <div class="jumbotron text-center">
         <h1>Favourites</h1>
-        <button class="btn btn-secondary" onclick="window.location.href='../'">Logout</button>
+        <button class="btn btn-secondary" onclick="window.location.href='../logout'">Logout</button>
         <button class="btn btn-secondary" onclick="window.location.href='/search'">Search</button>
     </div>
     <div class="container">
@@ -49,5 +49,5 @@
         </div>
     </div>
 </body>
-
+{% endif %}
 </html>

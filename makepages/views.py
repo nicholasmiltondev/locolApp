@@ -7,15 +7,15 @@ from django.contrib.auth.models import User
 class LoginView(TemplateView):
     template_name = 'login.html'
 
+class LoginsView(TemplateView):
+    template_name = 'logins.html'
+
 class SearchView(ListView):
     model = User
     template_name = "search.html"
     context_object_name = 'users'
 
     # def get_queryset(self):
-    #
-    #
-    #
     #     return User.objects.filter(username__contains=self.kwargs['term'])
 
 class ResultsView(TemplateView):

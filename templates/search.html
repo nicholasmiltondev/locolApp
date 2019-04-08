@@ -10,9 +10,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}search.js"></script>
 </head>
+{% if user.is_authenticated %}
 
 <body>
-    <button class="btn btn-secondary" onclick="window.location.href='../'">Logout</button>
+    <button class="btn btn-secondary" onclick="window.location.href='../logout'">Logout</button>
     <div class="jumbotron text-center">
         <span>
             <button class="btn btn-primary" onclick="window.location.href='/results'">Start a New Search!</button>
@@ -48,5 +49,5 @@
     </div>
 
 </body>
-
+{% endif %}
 </html>

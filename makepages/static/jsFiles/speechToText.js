@@ -9,11 +9,11 @@ if (window.hasOwnProperty('webkitSpeechRecognition')) {
 
   recognition.onstart = function() {
     recognizing = true;
-    document.getElementById("mic").src = '../static/images/mic-animate.gif';
+    document.getElementById("mic").src ='{{ STATIC_URL }}images/mic-animate.gif';
   };
 
   recognition.onerror = function() {
-    document.getElementById("mic").src = '../static/images/mic.gif';
+    document.getElementById("mic").src = '{{ STATIC_URL }}images/mic.gif';
       ignore_onend = true;
   };
 
@@ -22,7 +22,7 @@ if (window.hasOwnProperty('webkitSpeechRecognition')) {
     if (ignore_onend) {
       return;
     }
-    document.getElementById("mic").src = '../static/images/mic.gif';
+    document.getElementById("mic").src = '{{ STATIC_URL }}images/mic.gif';
   };
 
   recognition.onresult = function(event) {
@@ -36,7 +36,7 @@ if (window.hasOwnProperty('webkitSpeechRecognition')) {
   };
 } else {
     // change image to slash mic
-    document.getElementById("mic").src = '../static/images/mic-slash.gif';
+    document.getElementById("mic").src = '{{ STATIC_URL }}images/mic-slash.gif';
 }
 
 function speechToText() {
@@ -47,6 +47,6 @@ function speechToText() {
   recognition.lang = "en-US";
   recognition.start();
   ignore_onend = false;
-  document.getElementById("mic").src = '../static/images/mic-slash.gif';
+  document.getElementById("mic").src = '{{ STATIC_URL }}images/mic-slash.gif';
 
 }
